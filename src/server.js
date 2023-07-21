@@ -14,7 +14,7 @@ app.set('view engine', 'ejs')
 
 //define routes
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Hello World!@')
 })
 app.get('/life', (req, res) => {
     res.send('My life is beautiful!')

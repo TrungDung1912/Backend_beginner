@@ -1,7 +1,18 @@
+const connection = require('../config/database')
+
 const getHomepage = (req, res) => {
     //process data
     //call model 
-    res.send('Hello World!@')
+    let users = []
+
+    connection.query(
+        'SELECT * FROM Users u',
+        function (err, results, fields) {
+            users = results
+            console.log(">>>users", users); // fields contains extra meta data about results, if available
+            res.send(users); //
+        }
+    );
 }
 
 const getLife = (req, res) => {

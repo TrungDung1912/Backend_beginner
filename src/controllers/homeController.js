@@ -1,6 +1,6 @@
 const getHomepage = (req, res) => {
     //process data
-    //call model
+    //call model 
     res.send('Hello World!@')
 }
 

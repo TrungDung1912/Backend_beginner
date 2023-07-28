@@ -22,6 +22,7 @@ configViewEngine(app)
 app.use('/', webRouter)
 
 //test connection
+connection()
 
 //run server
 app.listen(port, hostname, () => {

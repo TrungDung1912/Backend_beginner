@@ -4,8 +4,7 @@ const path = require('path')//commonjs
 const configViewEngine = require('./config/viewEngine')
 const webRouter = require('./routes/web')
 const connection = require('./config/database')
-const mongoose = require('mongoose')
-
+const Kitten = require('./models/Kitten')
 //import express from 'express'//es modules
 
 const app = express()//app express
@@ -22,12 +21,7 @@ configViewEngine(app)
 //define routes
 app.use('/', webRouter)
 
-const kittySchema = new mongoose.Schema({
-    name: String
-});
-
-const Kitten = mongoose.model('Kitten', kittySchema);
-const cat = new Kitten({ name: 'DungBum cat' });
+const cat = new Kitten({ name: 'DungBum chill' });
 cat.save();
 
 //test connection

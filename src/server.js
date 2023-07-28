@@ -4,7 +4,6 @@ const path = require('path')//commonjs
 const configViewEngine = require('./config/viewEngine')
 const webRouter = require('./routes/web')
 const connection = require('./config/database')
-const Kitten = require('./models/Kitten')
 //import express from 'express'//es modules
 
 const app = express()//app express
@@ -21,19 +20,16 @@ configViewEngine(app)
 //define routes
 app.use('/', webRouter)
 
-const cat = new Kitten({ name: 'DungBum chill' });
-cat.save();
-
-//test connection
-(async () => {
-    try {
-        await connection()
-        app.listen(port, hostname, () => {
-            console.log(`Backend app listening on port ${port}`)
-        })
-    } catch (error) {
-        console.log('Error: ', error)
-    }
-})()
+    //test connection
+    ; (async () => {
+        try {
+            await connection()
+            app.listen(port, hostname, () => {
+                console.log(`Backend app listening on port ${port}`)
+            })
+        } catch (error) {
+            console.log('Error: ', error)
+        }
+    })()
 
 //run server

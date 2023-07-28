@@ -1,8 +1,9 @@
 const connection = require('../config/database')
 const { getAllUsers, getUsersbyID, updateUsersbyID } = require('../services/CRUDService')
+const User = require('../models/user')
 
 const getHomepage = async (req, res) => {
-    let results = await getAllUsers()
+    let results = await User.find({})
     return res.render('homepage.ejs', { listUsers: results })
 }
 
@@ -21,10 +22,7 @@ const postNewUser = async (req, res) => {
 
     console.log("infor: ", email, name, city)
 
-    let [results, fields] = await connection.query(
-        `INSERT INTO  Users (email, name, city) VALUES (?, ?, ?)`, [email, name, city],
-    )
-
+    await User.create({ email, name, city })
 
     res.send('Created user successfully!!!')
 }
@@ -35,7 +33,7 @@ const getCreatePage = (req, res) => {
 
 const getUpdatePage = async (req, res) => {
     const userId = req.params.id
-    let user = await getUsersbyID(userId)
+    let user = await User.findById(userId)
     res.render('edit.ejs', { userEdit: user })
 }
 
@@ -47,7 +45,8 @@ const postUpdateUser = async (req, res) => {
 
     console.log("infor: ", email, name, city, userId)
 
-    await updateUsersbyID(email, name, city, userId)
+    // await updateUsersbyID(email, name, city, userId)
+    await User.findByIdAndUpdate(userId, { email, name, city })
 
     // res.send('Updated user successfully!!!')
     //Comeback home directly

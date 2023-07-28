@@ -21,10 +21,16 @@ configViewEngine(app)
 //define routes
 app.use('/', webRouter)
 
-//test connection
-connection()
+    //test connection
+    ; (async () => {
+        try {
+            await connection()
+            app.listen(port, hostname, () => {
+                console.log(`Backend app listening on port ${port}`)
+            })
+        } catch (error) {
+            console.log('Error: ', error)
+        }
+    })()
 
 //run server
-app.listen(port, hostname, () => {
-    console.log(`Example app listening on port ${port}`)
-})

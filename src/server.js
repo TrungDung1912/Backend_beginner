@@ -4,6 +4,7 @@ const path = require('path')//commonjs
 const configViewEngine = require('./config/viewEngine')
 const webRouter = require('./routes/web')
 const connection = require('./config/database')
+const mongoose = require('mongoose')
 
 //import express from 'express'//es modules
 
@@ -21,16 +22,24 @@ configViewEngine(app)
 //define routes
 app.use('/', webRouter)
 
-    //test connection
-    ; (async () => {
-        try {
-            await connection()
-            app.listen(port, hostname, () => {
-                console.log(`Backend app listening on port ${port}`)
-            })
-        } catch (error) {
-            console.log('Error: ', error)
-        }
-    })()
+const kittySchema = new mongoose.Schema({
+    name: String
+});
+
+const Kitten = mongoose.model('Kitten', kittySchema);
+const cat = new Kitten({ name: 'DungBum cat' });
+cat.save();
+
+//test connection
+(async () => {
+    try {
+        await connection()
+        app.listen(port, hostname, () => {
+            console.log(`Backend app listening on port ${port}`)
+        })
+    } catch (error) {
+        console.log('Error: ', error)
+    }
+})()
 
 //run server

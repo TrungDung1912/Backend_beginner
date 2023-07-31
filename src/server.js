@@ -3,6 +3,7 @@ const express = require('express')//commonjs
 const path = require('path')//commonjs
 const configViewEngine = require('./config/viewEngine')
 const webRouter = require('./routes/web')
+const apiRouter = require('./routes/api')
 const connection = require('./config/database')
 //import express from 'express'//es modules
 
@@ -19,6 +20,8 @@ configViewEngine(app)
 
 //define routes
 app.use('/', webRouter)
+app.use('/v1/api/', apiRouter)
+
 
     //test connection
     ; (async () => {

@@ -5,11 +5,15 @@ const configViewEngine = require('./config/viewEngine')
 const webRouter = require('./routes/web')
 const apiRouter = require('./routes/api')
 const connection = require('./config/database')
+const fileUpload = require('express-fileupload')
 //import express from 'express'//es modules
 
 const app = express()//app express
 const port = process.env.PORT || 8888//define port
 const hostname = process.env.HOST_NAME
+
+//config file up
+app.use(fileUpload());
 
 //config request.body
 app.use(express.json()) // for json

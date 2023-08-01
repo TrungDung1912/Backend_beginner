@@ -1,6 +1,6 @@
 const express = require('express');
 const routerAPI = express.Router();
-const { getUsers, postNewUsers, putUpdateUsers, deleteUsers, postUploadSingleFile } = require('../controllers/apiController')
+const { getUsers, postNewUsers, putUpdateUsers, deleteUsers, postUploadSingleFile, postUploadMultipleFile } = require('../controllers/apiController')
 
 //router.method('/route', handler)
 routerAPI.get('/', (req, res) => {
@@ -12,7 +12,7 @@ routerAPI.post('/users', postNewUsers)
 routerAPI.put('/users', putUpdateUsers)
 routerAPI.delete('/users', deleteUsers)
 routerAPI.post('/file', postUploadSingleFile)
-
+routerAPI.post('/files', postUploadMultipleFile)
 
 
 

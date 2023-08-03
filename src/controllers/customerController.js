@@ -1,5 +1,6 @@
 const { uploadSingeFile } = require("../services/fileService")
-const { createCustomerService, createCustomersService } = require("../services/customerService")
+const { createCustomerService, createCustomersService,
+    getInfoCustomersService, putUpdateCustomerService } = require("../services/customerService")
 
 module.exports = {
 
@@ -36,5 +37,20 @@ module.exports = {
                 data: customers
             })
         }
+    },
+    getInfoCustomers: async (req, res) => {
+        let info = await getInfoCustomersService()
+        return res.status(200).json({
+            EC: 0,
+            data: info
+        })
+    },
+    putUpdateCustomer: async (req, res) => {
+        let { id, name, adress, email } = req.body
+        let info_update = await putUpdateCustomerService(id, name, adress, email)
+        return res.status(200).json({
+            EC: 0,
+            data: info_update
+        })
     }
 }

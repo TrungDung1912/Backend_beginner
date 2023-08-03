@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const mongoose_delete = require('mongoose-delete');
+
 
 //shape data
 const customersSchema = new mongoose.Schema({
@@ -14,6 +16,8 @@ const customersSchema = new mongoose.Schema({
 },
     { timestamps: true }
 );
+
+customersSchema.plugin(mongoose_delete);
 
 const Customer = mongoose.model('customer', customersSchema);
 

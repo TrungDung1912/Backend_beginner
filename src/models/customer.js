@@ -17,11 +17,11 @@ const customersSchema = new mongoose.Schema(
     },
     {
         timestamps: true, //createdAt / updatedAt
-        statics: {
-            findByDungBum(name) {
-                return this.findOne({ name: new RegExp(name, 'i') })
-            }
-        }
+        // statics: {
+        //     findByDungBum(name) {
+        //         return this.findOne({ name: new RegExp(name, 'i') })
+        //     }
+        // }
     }
 );
 

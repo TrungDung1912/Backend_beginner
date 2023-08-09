@@ -4,6 +4,8 @@ const { getUsers, postNewUsers, putUpdateUsers, deleteUsers,
     postUploadSingleFile, postUploadMultipleFile } = require('../controllers/apiController')
 const { postCreateCustomer, postCreateCustomers, getInfoCustomers,
     putUpdateCustomer, deleteACustomer, deleteCustomers } = require('../controllers/customerController')
+const { postCreateProject, getProject, updateProject, deleteProject } = require('../controllers/projectController')
+
 //router.method('/route', handler)
 routerAPI.get('/', (req, res) => {
     res.send("Hello world!");
@@ -32,6 +34,15 @@ routerAPI.put('/customer', putUpdateCustomer)
 routerAPI.delete('/customer', deleteACustomer)
 
 routerAPI.delete('/customers-many', deleteCustomers)
+
+routerAPI.post('/projects', postCreateProject)
+
+routerAPI.get('/projects', getProject)
+
+routerAPI.put('/projects', updateProject)
+
+routerAPI.delete('/projects', deleteProject)
+
 
 routerAPI.get('/info', (req, res) => {
     console.log(req.query)

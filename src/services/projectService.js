@@ -20,6 +20,7 @@ module.exports = {
                 let result = await myProject.save()
                 return result
             }
+
             if (data.type === "REMOVE-USERS") {
                 console.log(data)
                 //find project by id
@@ -31,6 +32,18 @@ module.exports = {
                 let result = await myProject.save()
                 return result
             }
+            if (data.type === "ADD-TASKS") {
+                console.log(data)
+                //find project by id
+                let myProject = await Project.findById(data.projectId).exec()
+
+                for (let i = 0; i < data.taskArr.length; i++) {
+                    myProject.tasksInfo.push(data.taskArr[i])
+                }
+                let result = await myProject.save()
+                return result
+            }
+
         } catch (err) {
             console.log(err)
             return null

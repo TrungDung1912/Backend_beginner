@@ -5,7 +5,7 @@ const { getUsers, postNewUsers, putUpdateUsers, deleteUsers,
 const { postCreateCustomer, postCreateCustomers, getInfoCustomers,
     putUpdateCustomer, deleteACustomer, deleteCustomers } = require('../controllers/customerController')
 const { postCreateProject, getProject, updateProject, deleteProject } = require('../controllers/projectController')
-
+const { postCreateTask, getTask, updateTask, deleteTask } = require('../controllers/taskController')
 //router.method('/route', handler)
 routerAPI.get('/', (req, res) => {
     res.send("Hello world!");
@@ -43,6 +43,13 @@ routerAPI.put('/projects', updateProject)
 
 routerAPI.delete('/projects', deleteProject)
 
+routerAPI.post('/tasks', postCreateTask)
+
+routerAPI.get('/tasks', getTask)
+
+routerAPI.put('/tasks', updateTask)
+
+routerAPI.delete('/tasks', deleteTask)
 
 routerAPI.get('/info', (req, res) => {
     console.log(req.query)

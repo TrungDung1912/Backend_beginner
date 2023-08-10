@@ -37,6 +37,6 @@ const taskSchema = new mongoose.Schema(
 )
 
 taskSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
-const Task = mongoose.model('Task', taskSchema);
+const Task = mongoose.model('task', taskSchema);
 
 module.exports = Task;

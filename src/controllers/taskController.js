@@ -1,12 +1,29 @@
 const { createTaskService, getTaskService, updateTaskService, deleteTaskService } = require('../services/taskService')
+const Joi = require('joi');
 
 module.exports = {
     postCreateTask: async (req, res) => {
         let result = await createTaskService(req.body)
-        return res.status(200).json({
-            EC: 0,
-            data: result
+        const schema = Joi.object({
+            name: Joi.string()
+                .alphanum()
+                .min(3)
+                .max(30)
+                .required(),
+            status: Joi.string(),
+            description: Joi.string(),
         })
+        const { error } = schema.validate(req.body, { abortEarly: false });
+        if (error) {
+            return res.status(200).json({
+                msg: error
+            })
+        } else {
+            return res.status(200).json({
+                EC: 0,
+                data: result
+            })
+        }
     },
 
     getTask: async (req, res) => {

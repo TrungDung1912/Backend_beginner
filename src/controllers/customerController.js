@@ -2,28 +2,66 @@ const { uploadSingeFile } = require("../services/fileService")
 const { createCustomerService, createCustomersService,
     getInfoCustomersService, putUpdateCustomerService,
     deleteACustomerService, deleteCustomersService } = require("../services/customerService")
+const Joi = require('joi');
 
 module.exports = {
-
     postCreateCustomer: async (req, res) => {
         let { name, address, phone, email, description } = req.body
-        let imageURL = ""
-        if (!req.files || Object.keys(req.files).length === 0) {
 
-        } else {
-            let result = await uploadSingeFile(req.files.image)
-            imageURL = result.path
-        }
+        const schema = Joi.object({
+            name: Joi.string()
+                .alphanum()
+                .min(3)
+                .max(30)
+                .required(),
 
-        let customerData = {
-            name, address, phone, email, description, image: imageURL
-        }
-        let customer = await createCustomerService(customerData)
+            address: Joi.string(),
+            phone: Joi.string()
+                .pattern(new RegExp('^[0-9]{8,11}$')),
+            email: Joi.string()
+                .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+            description: Joi.string(),
 
-        return res.status(200).json({
-            EC: 0,
-            data: customer
+            // password: Joi.string()
+            //     .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+
+            // repeat_password: Joi.ref('password'),
+
+
+            // access_token: [
+            //     Joi.string(),
+            //     Joi.number()
+            // ],
+
+            // birth_year: Joi.number()
+            //     .integer()
+            //     .min(1900)
+            //     .max(2013),     
         })
+        const { error } = schema.validate(req.body, { abortEarly: false });
+        if (error) {
+            return res.status(200).json({
+                msg: error
+            })
+        } else {
+            let imageURL = ""
+            if (!req.files || Object.keys(req.files).length === 0) {
+
+            } else {
+                let result = await uploadSingeFile(req.files.image)
+                imageURL = result.path
+            }
+
+            let customerData = {
+                name, address, phone, email, description, image: imageURL
+            }
+            let customer = await createCustomerService(customerData)
+
+            return res.status(200).json({
+                EC: 0,
+                data: customer
+            })
+        }
     },
     postCreateCustomers: async (req, res) => {
         let customers = await createCustomersService(req.body.customers)

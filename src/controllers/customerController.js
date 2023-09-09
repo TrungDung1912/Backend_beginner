@@ -63,6 +63,7 @@ module.exports = {
             })
         }
     },
+
     postCreateCustomers: async (req, res) => {
         let customers = await createCustomersService(req.body.customers)
         if (customers) {
